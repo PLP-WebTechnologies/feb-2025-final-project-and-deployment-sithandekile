@@ -1,10 +1,20 @@
-// Display featured products on index.html
+ const heroBackground = document.getElementById("hero");
+const images = ["https://images.pexels.com/photos/6214134/pexels-photo-6214134.jpeg?auto=compress&cs=tinysrgb&w=600", "https://images.pexels.com/photos/7552326/pexels-photo-7552326.jpeg?auto=compress&cs=tinysrgb&w=600", "https://images.pexels.com/photos/6868178/pexels-photo-6868178.jpeg?auto=compress&cs=tinysrgb&w=600"];
+let currentIndex = 0;
+
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % images.length;
+  heroBackground.style.backgroundImage = `url('${images[currentIndex]}')`;
+}, 5000); // rotating every 3 seconds
+
+ 
+ // Display featured products on index.html
 function showFeaturedProducts() {
   const featuredContainer = document.getElementById("featured-container");
   if (!featuredContainer) return;
 
-  // Select a few featured products (e.g., the first 2 products)
-  const featured = products.slice(0, 2);
+  // Select a few featured products (e.g., the first 3 products)
+  const featured = products.slice(0, 3);
 
   featured.forEach(product => {
     const div = document.createElement("div");
@@ -28,17 +38,17 @@ document.addEventListener("DOMContentLoaded", () => {
 // my product data
 const products = [
   { id: 1, name: "T-Shirt", price: 10, image: "./assets/coding.png", description: "Comfortable cotton T-shirt." },
-  { id: 6, name: "Sneakers", price: 200, image: "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600", description: "Stylish running sneakers." },
-  { id: 12, name: "short coat", price: 210, image: "./assets/short.png", description: "short winter coat." },
-  { id: 2, name: "T-Shirt", price: 10, image: "./assets/orange.png", description: "Stylish cotton T-shirt." },
-  { id: 3, name: "T-Shirt", price: 20, image: "./assets/minds.png", description: "Stylish running sneakers." },
-  { id: 4, name: "T-Shirt", price: 30, image: "./assets/heroe.png", description: "Stylish running sneakers." },
-  { id: 5, name: "T-Shirt", price: 50, image: "./assets/lorem.png", description: "Stylish running sneakers." },
-  { id: 7, name: "Sneakers", price: 250, image: "./assets/allstar.png", description: "Stylish running sneakers." },
-  { id: 8, name: "Sneakers", price: 300, image: "./assets/pink.png", description: "Stylish running sneakers." },
-  { id: 9, name: "Sneakers", price: 350, image: "./assets/white.png", description: "Stylish running sneakers." },
-  { id: 10, name: "Sneakers", price: 375, image: "./assets/navy.png", description: "Stylish running sneakers." },
-  { id: 11, name: "long coat", price: 320, image: "./assets/long.png", description: "long winter black coat." }
+  { id: 2, name: "Sneakers", price: 200, image: "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600", description: "Stylish running sneakers." },
+  { id: 3, name: "short coat", price: 210, image: "./assets/short.png", description: "short winter coat." },
+  { id: 4, name: "T-Shirt", price: 10, image: "./assets/orange.png", description: "Stylish cotton T-shirt." },
+  { id: 5, name: "T-Shirt", price: 20, image: "./assets/minds.png", description: "Stylish running sneakers." },
+  { id: 6, name: "T-Shirt", price: 30, image: "./assets/heroe.png", description: "Stylish running sneakers." },
+  { id: 7, name: "T-Shirt", price: 50, image: "./assets/lorem.png", description: "Stylish running sneakers." },
+  { id: 8, name: "Sneakers", price: 250, image: "./assets/allstar.png", description: "Stylish running sneakers." },
+  { id: 9, name: "Sneakers", price: 300, image: "./assets/pink.png", description: "Stylish running sneakers." },
+  { id: 10, name: "Sneakers", price: 350, image: "./assets/white.png", description: "Stylish running sneakers." },
+  { id: 11, name: "Sneakers", price: 375, image: "./assets/navy.png", description: "Stylish running sneakers." },
+  { id: 12, name: "long coat", price: 320, image: "./assets/long.png", description: "long winter black coat." }
 ];
 
 // Display products on products.html
@@ -194,7 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const testimonials = [
+  // Step 1: Load testimonials from localStorage or use defaults
+  const defaultTestimonials = [
     {
       name: "Peter N.",
       feedback: "Amazing products and fantastic customer service!",
@@ -212,11 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  const testimonialContainer = document.getElementById("testimonial-container");
+  let testimonials = JSON.parse(localStorage.getItem("testimonials")) || defaultTestimonials;
 
-  // Function for rendering the testimonials
+  const testimonialContainer = document.getElementById("testimonial-container");
+  const feedbackForm = document.getElementById("feedback-form");
+
+  // Step 2: Render testimonials
   function renderTestimonials() {
-    testimonialContainer.innerHTML = testimonials
+    testimonialContainer.innerHTML = testimonials.slice(0, 3)
       .map(
         (testimonial) => `
         <div class="testimonial">
@@ -229,29 +243,24 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
-  // Initial rendering of testimonials
   renderTestimonials();
 
-  // Handling the feedback form submission
-  const feedbackForm = document.getElementById("feedback-form");
+  // Step 3: Handle form submission
   feedbackForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Getting the form values
     const name = document.getElementById("name").value;
     const feedback = document.getElementById("feedback").value;
     const rating = parseInt(document.getElementById("rating").value);
 
-    // Adding the new testimonial to the array
-    testimonials.push({ name, feedback, rating });
+    const newTestimonial = { name, feedback, rating };
+    testimonials.push(newTestimonial);
 
-    // Re-rendering the testimonials
+    // Step 4: Update localStorage
+    localStorage.setItem("testimonials", JSON.stringify(testimonials));
+
     renderTestimonials();
-
-    // Clearing the form
     feedbackForm.reset();
-
-    //  Show a success message
     alert("Thank you for your feedback!");
   });
 });

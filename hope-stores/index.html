@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ThandeStore</title>
+  <title>HopeStore</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>ThandeStore</h1>
+    <h1>HopeStore</h1>
     <nav>
       <a href="index.html">Home</a>
       <a href="products.html">Products</a>
@@ -20,17 +20,17 @@
   <!-- Hero Section -->
   <section id="hero">
     <div class="hero-content">
-      <h2>Welcome to MyStore</h2>
+      <h2>Welcome to HopeStore</h2>
       <p>Your one-stop shop for the best products at unbeatable prices!</p>
-      <a href="products.html" class="cta-button">Shop Now</a>
+      <a href="products.html" class="mybtn">Shop Now</a>
     </div>
   </section>
 
   <!-- Featured Products Section -->
   <main>
-    <section id="featured-products" class="products">
+    <section id="feat-products">
       <h3>Featured Products</h3>
-      <div id="featured-container">
+      <div id="featured-container" class="products">
         <!-- Featured products will be dynamically populated by scripts.js -->
       </div>
     </section>
@@ -63,7 +63,7 @@
       <option value="1">⭐</option>
     </select>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="mybtn">Submit</button>
   </form>
 </section>
 <!-- footer section -->
@@ -77,7 +77,7 @@
       <p>Beauty & Health</p>
       <p>Sports & Outdoors</p>
     </div>
-    <div>
+    <div class='service'>
       <h4>Customer Service</h4>
       <p>Returns & Exchanges</p>
       <p>Shipping Information</p>
@@ -91,9 +91,10 @@
       <p><a href="#">Twitter</a></p>
       <p><a href="#">Instagram</a></p>
       <p><a href="#">LinkedIn</a></p>
-    <p>&copy; 2025 MyStore. All rights reserved.</p>
     </div>
-  </div>
+     <hr>
+    <p class='store'>&copy; 2025 HopeStore. All rights reserved.</p>
+    </div>
   </footer>
   <script src="scripts.js"></script>
 </body>
